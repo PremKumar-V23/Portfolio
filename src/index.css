@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+/* Custom cursor: hides the native pointer only on devices with a fine
+   pointer (mouse/trackpad). Touch devices are left completely untouched. */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
+}
