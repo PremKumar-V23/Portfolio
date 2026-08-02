@@ -36,7 +36,7 @@ import {
 } from "lucide-react";
 import CustomCursor from "./components/CustomCursor.jsx";
 import ProjectsSlider from "./components/ProjectsSlider.jsx";
-import Skybackground from "./components/Skybackground.jsx";
+import SkyBackground from "./components/Skybackground.jsx";
 
 /**
  * V Premkumar — Portfolio
