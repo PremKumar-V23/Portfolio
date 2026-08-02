@@ -33,6 +33,7 @@ import {
   TestTube2,
   Cpu,
   ArrowUpRight,
+  Bot,
 } from "lucide-react";
 import CustomCursor from "./components/CustomCursor.jsx";
 import ProjectsSlider from "./components/ProjectsSlider.jsx";
@@ -62,18 +63,28 @@ const NAV_LINKS = [
 const MARQUEE_ITEMS = [
   "Playwright",
   "Selenium",
+  "REST Assured",
   "TestNG",
+  "Java",
   "JavaScript",
   "Python",
-  "Java",
+  "TypeScript",
+  "React",
+  "Node.js",
   "SQL",
   "Docker",
   "Jenkins",
   "Git",
+  "GitHub",
   "REST APIs",
+  "Postman",
+  "Linux",
   "Power BI",
   "Scikit-learn",
-  "Figma",
+  "ChatGPT",
+  "GitHub Copilot",
+  "Google Gemini",
+  "Prompt Engineering",
   "Agile / STLC",
 ];
 
@@ -92,14 +103,26 @@ const SKILL_GROUPS = [
       "UI Testing",
       "Cross-Browser Testing",
       "Test Case Design",
-      "Defect Management",
+      "Rest Assured",
     ],
   },
   {
     title: "Programming",
     icon: Code2,
     accent: "indigo",
-    items: ["JavaScript", "Python", "Java", "SQL"],
+    items: [
+      "JavaScript",
+      "Python",
+      "Java",
+      "SQL",
+      "TypeScript",
+      "C++",
+      "Bash",
+      "Node.js",
+      "Express.js",
+      "React",
+      "Flask",
+    ],
   },
   {
     title: "Web & DevOps",
@@ -110,17 +133,34 @@ const SKILL_GROUPS = [
       "CSS",
       "JSON",
       "REST APIs",
-      "Git / GitHub",
+      "Git",
+      "GitHub",
       "Jenkins",
       "Docker",
       "Linux",
+      "Postman",
     ],
   },
   {
     title: "Analytics & Process",
     icon: BarChart3,
     accent: "purple",
-    items: ["Power BI", "Figma", "SDLC", "STLC", "Agile"],
+    items: ["Power BI", "Figma", "SDLC", "STLC", "Agile", "Jira", "Confluence"],
+  },
+  {
+    title: "AI Tools",
+    icon: Bot,
+    accent: "rose",
+    items: [
+      "ChatGPT",
+      "GitHub Copilot",
+      "Google Gemini",
+      "Prompt Engineering",
+      "AI-Assisted Testing",
+      "AI Code Review",
+      "Test Case Generation",
+      "AI Debugging",
+    ],
   },
 ];
 
@@ -217,7 +257,15 @@ const PROJECTS = [
   },
 ];
 
-const FILTERS = ["All", "Testing", "Machine Learning", "Web Development"];
+const FILTERS = [
+  "All",
+  "Testing",
+  "Automation QA",
+  "QA Automation",
+  "Machine Learning",
+  "Data Analytics",
+  "Web Development",
+];
 
 const EXPERIENCE = [
   {
@@ -322,6 +370,14 @@ const ACCENT_MAP = {
     chip: "bg-purple-900/40 text-purple-700 dark:text-purple-300",
     dot: "bg-purple-600",
     ring: "ring-purple-500/30",
+  },
+  rose: {
+    text: "text-rose-500 dark:text-rose-400",
+    bg: "bg-rose-500/10",
+    border: "hover:border-rose-500/50",
+    chip: "bg-rose-900/40 text-rose-700 dark:text-rose-300",
+    dot: "bg-rose-600",
+    ring: "ring-rose-500/30",
   },
 };
 
@@ -963,7 +1019,7 @@ export default function Portfolio() {
           id="skills"
           className="py-16 sm:py-24 bg-slate-50/70 dark:bg-slate-900/30 backdrop-blur-sm"
         >
-          <div className="max-w-6xl mx-auto px-4 xs:px-5 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 xs:px-5 sm:px-6 lg:px-8">
             <Reveal className="text-center max-w-xl mx-auto mb-12 sm:mb-14">
               <Eyebrow num="04" label="Toolkit" />
               <h2 className="text-2xl sm:text-3xl font-extrabold">
@@ -975,13 +1031,15 @@ export default function Portfolio() {
               </p>
             </Reveal>
 
-            <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
               {SKILL_GROUPS.map((group, i) => {
                 const Icon = group.icon;
                 const a = ACCENT_MAP[group.accent];
                 return (
                   <Reveal key={group.title} delay={i * 80}>
-                    <div className="h-full bg-white dark:bg-slate-900/60 p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:scale-[1.02] hover:shadow-lg transition-all duration-300">
+                    <div
+                      className={`h-full flex flex-col bg-white dark:bg-slate-900/60 p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 ${a.border} hover:scale-[1.03] hover:shadow-2xl transition-all duration-300`}
+                    >
                       <div className={`${a.text} mb-3`}>
                         <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
                       </div>
@@ -992,7 +1050,7 @@ export default function Portfolio() {
                         {group.items.map((item) => (
                           <span
                             key={item}
-                            className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px] sm:text-xs rounded-md"
+                            className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[11px] sm:text-xs rounded-md transition-all duration-200 hover:bg-cyan-500 hover:text-white hover:-translate-y-0.5"
                           >
                             {item}
                           </span>
