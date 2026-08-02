@@ -201,6 +201,19 @@ const PROJECTS = [
     github: "https://github.com/PremKumar-V23",
     demo: "#",
   },
+
+  {
+    id: "restassured-framework",
+    category: "QA Automation",
+    badgeIcon: ShieldCheck,
+    accent: "blue",
+    title: "Enterprise REST Assured API Automation Framework",
+    description:
+      "Developed a scalable REST API automation framework using REST Assured, TestNG, and Maven with reusable architecture, authentication, data-driven testing, reporting, and CI/CD integration through Jenkins and GitHub Actions.",
+    stack: ["REST Assured", "TestNG", "Maven", "Jenkins"],
+    github: "https://github.com/PremKumar-V23/API-Testing-RestAssured",
+    demo: "#",
+  },
 ];
 
 const FILTERS = ["All", "Testing", "Machine Learning", "Web Development"];
