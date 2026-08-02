@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 import CustomCursor from "./components/CustomCursor.jsx";
 import ProjectsSlider from "./components/ProjectsSlider.jsx";
+import SkyBackground from "./components/SkyBackground.jsx";
 
 /**
  * V Premkumar — Portfolio
@@ -43,8 +44,8 @@ import ProjectsSlider from "./components/ProjectsSlider.jsx";
  * Apple-inspired premium aesthetic: full-screen loader, sticky nav,
  * scroll-triggered reveals, marquee tech strip, split "two disciplines"
  * section, card-based layout, dark/light theme, mobile nav, animated
- * project filters, and a functional (client-side) contact form.
- * No phone number anywhere — contact is email, GitHub, and the form.
+ * project filters, and a theme-aware animated sky background.
+ * No phone number anywhere — contact is email and GitHub.
  */
 
 const NAV_LINKS = [
@@ -485,12 +486,6 @@ function Marquee({ items }) {
 export default function Portfolio() {
   const [theme, setTheme] = useState("dark");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [formStatus, setFormStatus] = useState("idle"); // idle | sending | sent
   const [loading, setLoading] = useState(true);
 
   const sectionIds = useMemo(
@@ -526,28 +521,14 @@ export default function Portfolio() {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormState((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (!formState.name || !formState.email || !formState.message) return;
-    setFormStatus("sending");
-    // Client-side only demo submission — wire this to a backend or
-    // service (e.g. Formspree, EmailJS) to actually deliver messages.
-    setTimeout(() => {
-      setFormStatus("sent");
-      setFormState({ name: "", email: "", message: "" });
-    }, 900);
-  };
-
   return (
     <div className={isDark ? "dark" : ""}>
       <CustomCursor />
       <Loader show={loading} />
-      <div className="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased overflow-x-hidden font-sans transition-colors duration-300 selection:bg-cyan-500 selection:text-white [scrollbar-gutter:stable]">
+      <div className="relative text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden font-sans transition-colors duration-300 selection:bg-cyan-500 selection:text-white [scrollbar-gutter:stable]">
+        {/* Ambient, theme-aware sky — fixed behind all content */}
+        <SkyBackground isDark={isDark} />
+
         {/* ================= Header ================= */}
         <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-white/80 dark:bg-slate-950/75 border-b border-slate-200 dark:border-white/10">
           <div className="max-w-6xl mx-auto px-4 xs:px-5 sm:px-6 lg:px-8 py-3.5 sm:py-4 flex justify-between items-center">
@@ -827,7 +808,7 @@ export default function Portfolio() {
         {/* ================= Two Disciplines split section ================= */}
         <section
           id="focus"
-          className="py-16 sm:py-24 bg-slate-50 dark:bg-slate-900/50"
+          className="py-16 sm:py-24 bg-slate-50/70 dark:bg-slate-900/40 backdrop-blur-sm"
         >
           <div className="max-w-6xl mx-auto px-4 xs:px-5 sm:px-6 lg:px-8">
             <Reveal className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
@@ -980,7 +961,7 @@ export default function Portfolio() {
         {/* ================= Skills ================= */}
         <section
           id="skills"
-          className="py-16 sm:py-24 bg-slate-50 dark:bg-slate-900/40"
+          className="py-16 sm:py-24 bg-slate-50/70 dark:bg-slate-900/30 backdrop-blur-sm"
         >
           <div className="max-w-6xl mx-auto px-4 xs:px-5 sm:px-6 lg:px-8">
             <Reveal className="text-center max-w-xl mx-auto mb-12 sm:mb-14">
@@ -1046,7 +1027,7 @@ export default function Portfolio() {
         {/* ================= Experience ================= */}
         <section
           id="experience"
-          className="py-16 sm:py-24 bg-slate-50 dark:bg-slate-900/40"
+          className="py-16 sm:py-24 bg-slate-50/70 dark:bg-slate-900/30 backdrop-blur-sm"
         >
           <div className="max-w-4xl mx-auto px-4 xs:px-5 sm:px-6 lg:px-8">
             <Reveal className="text-center mb-12 sm:mb-16">
@@ -1173,7 +1154,7 @@ export default function Portfolio() {
         {/* ================= Contact ================= */}
         <section
           id="contact"
-          className="relative py-20 sm:py-28 lg:py-32 bg-slate-50 dark:bg-slate-950 overflow-hidden border-t border-slate-200 dark:border-slate-800"
+          className="relative py-20 sm:py-28 lg:py-32 bg-slate-50/60 dark:bg-slate-950/40 backdrop-blur-sm overflow-hidden border-t border-slate-200 dark:border-slate-800"
         >
           {/* decorative column-grid overlay, mirrors an editorial layout grid */}
           <div
@@ -1241,90 +1222,8 @@ export default function Portfolio() {
               </Reveal>
             </div>
 
-            {/* Message form — secondary path alongside the direct email link above */}
-            <Reveal delay={150} className="mt-14 sm:mt-16 max-w-2xl">
-              <form
-                onSubmit={handleFormSubmit}
-                className="bg-white dark:bg-slate-900/60 p-5 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-4"
-              >
-                <p className="text-xs font-mono uppercase tracking-widest text-slate-400 dark:text-slate-500">
-                  Or send a message directly
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label
-                      className="text-xs font-semibold text-slate-500 dark:text-slate-400"
-                      htmlFor="name"
-                    >
-                      Name
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
-                      value={formState.name}
-                      onChange={handleFormChange}
-                      className="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      className="text-xs font-semibold text-slate-500 dark:text-slate-400"
-                      htmlFor="email"
-                    >
-                      Email
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      value={formState.email}
-                      onChange={handleFormChange}
-                      className="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                      placeholder="you@example.com"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label
-                    className="text-xs font-semibold text-slate-500 dark:text-slate-400"
-                    htmlFor="message"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={4}
-                    value={formState.message}
-                    onChange={handleFormChange}
-                    className="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none"
-                    placeholder="Say hello, or ask about a project..."
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={formStatus === "sending"}
-                  className="w-full sm:w-auto px-6 py-3 rounded-full bg-cyan-600 hover:bg-cyan-500 disabled:opacity-60 text-white font-medium shadow-lg shadow-cyan-600/30 transition-all flex items-center justify-center gap-2"
-                >
-                  {formStatus === "sending" ? "Sending..." : "Send Message"}
-                  <Send className="w-4 h-4" />
-                </button>
-                {formStatus === "sent" && (
-                  <p className="text-emerald-500 dark:text-emerald-400 text-sm font-medium">
-                    Message captured — connect this form to your email service
-                    to receive it directly.
-                  </p>
-                )}
-              </form>
-            </Reveal>
-
             {/* Footer meta row, editorial-style credit line */}
-            <div className="mt-16 sm:mt-20 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-slate-400 dark:text-slate-500">
+            <div className="mt-20 sm:mt-28 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-slate-400 dark:text-slate-500">
               <span>V Premkumar, Chennai, India</span>
               <span>2026</span>
             </div>
