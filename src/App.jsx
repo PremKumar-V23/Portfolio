@@ -32,6 +32,7 @@ import {
   Check,
   TestTube2,
   Cpu,
+  ClipboardCheck,
   ArrowUpRight,
   Bot,
 } from "lucide-react";
@@ -268,6 +269,19 @@ const FILTERS = [
 ];
 
 const EXPERIENCE = [
+  {
+    role: "Manual Tester",
+    org: "GapAssess Solution Private Limited",
+    period: "Aug 2026 – Present",
+    tag: "Manual QA",
+    icon: ClipboardCheck,
+    accent: "purple",
+    points: [
+      "Performing manual functional, regression, and UI testing across web applications.",
+      "Designing and executing detailed test cases against requirements and user stories.",
+      "Logging, tracking, and verifying defect fixes to ensure release quality.",
+    ],
+  },
   {
     role: "Data Analyst Intern",
     org: "Imarticus Learning",
